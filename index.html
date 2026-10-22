@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>ERFAN — پیام‌رسان</title>
+<style>
+:root{--bg:#08090b;--panel:#101114;--panel2:#17181d;--line:#282a31;--red:#ff2638;--red2:#b60016;--text:#f5f5f7;--muted:#92949f;--green:#51d88a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -20%,#3a0710 0,transparent 40%),var(--bg);color:var(--text);font-family:Tahoma,"Segoe UI",sans-serif;min-height:100vh}
+button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.app{display:grid;grid-template-columns:310px minmax(0,1fr);height:100vh;max-width:1500px;margin:auto;border-inline:1px solid #1b1c20;background:#0b0c0f}
+.sidebar{border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0;background:#0d0e11}
+.brand{display:flex;align-items:center;gap:12px;padding:17px 18px;border-bottom:1px solid var(--line)}
+.brand img{width:54px;height:54px;object-fit:cover;border-radius:15px;box-shadow:0 0 20px #ff263833}
+.brand-name{font-size:23px;font-weight:900;letter-spacing:2px}.brand-tag{font-size:10px;color:var(--muted);margin-top:5px;letter-spacing:1px}
+.search{margin:14px 13px;position:relative}.search input{width:100%;background:#17181d;border:1px solid #2b2c33;color:white;padding:12px 38px 12px 12px;border-radius:12px}
+.search span{position:absolute;right:12px;top:10px;color:#aaa}
+.tabs{display:flex;gap:6px;padding:0 13px 12px}.tab{border:1px solid transparent;border-radius:9px;padding:8px 10px;background:transparent;color:var(--muted);font-size:12px}.tab.active{background:#311117;border-color:#6f1b27;color:#fff}
+.chatlist{overflow:auto;flex:1}.chatitem{display:flex;align-items:center;gap:11px;padding:13px 15px;border-bottom:1px solid #17181c;cursor:pointer;transition:.15s}.chatitem:hover,.chatitem.active{background:linear-gradient(90deg,#211015,#151014)}.chatitem.active{border-right:3px solid var(--red);padding-right:12px}
+.avatar{width:44px;height:44px;flex:0 0 44px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#4b111b,#18191e);border:1px solid #64202b;font-weight:bold;color:#ff8a96}.avatar.logo{overflow:hidden}.avatar.logo img{width:100%;height:100%;object-fit:cover}
+.chatinfo{min-width:0;flex:1}.chatline{display:flex;justify-content:space-between;gap:5px}.chatname{font-size:13px;font-weight:700}.time{font-size:10px;color:var(--muted);white-space:nowrap}.preview{font-size:11px;color:var(--muted);margin-top:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebottom{padding:12px;border-top:1px solid var(--line);display:flex;gap:8px}.sidebottom button{flex:1;border:1px solid #303138;background:#17181d;color:#ddd;padding:10px 5px;border-radius:10px;font-size:11px}
+.main{display:flex;flex-direction:column;min-width:0;min-height:0;position:relative}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;padding:12px 22px;border-bottom:1px solid var(--line);background:#0d0e11eF;gap:12px}.person{display:flex;align-items:center;gap:12px;min-width:0}.person .avatar{width:42px;height:42px}.personname{font-size:14px;font-weight:800}.status{font-size:11px;color:var(--green);margin-top:5px}.topactions{display:flex;gap:8px}.iconbtn{width:38px;height:38px;border-radius:11px;background:#17181d;border:1px solid #303139;color:#eee;font-size:17px}
+.content{flex:1;min-height:0;overflow:auto;padding:22px clamp(12px,4vw,52px);background-image:radial-gradient(#ffffff07 1px,transparent 1px);background-size:22px 22px}
+.day{text-align:center;margin:0 auto 22px;font-size:10px;color:#aaa;background:#202126;border:1px solid #34343a;border-radius:20px;padding:7px 12px;width:max-content}
+.msgrow{display:flex;margin:12px 0}.msgrow.mine{justify-content:flex-start}.msgrow.theirs{justify-content:flex-end}.bubble{max-width:min(75%,540px);padding:12px 14px;border:1px solid #303138;background:#17181d;border-radius:15px 15px 4px 15px;line-height:1.9;font-size:13px;box-shadow:0 4px 18px #0002;overflow-wrap:anywhere}.mine .bubble{background:linear-gradient(135deg,#7f0d1d,#4c0b16);border-color:#9e1b2b;border-radius:15px 15px 15px 4px}.msgmeta{display:flex;justify-content:flex-end;gap:8px;color:#c8a1a5;font-size:9px;margin-top:5px}
+.composer{display:flex;align-items:flex-end;gap:10px;padding:14px 18px;border-top:1px solid var(--line);background:#0d0e11}.composebtn{border:0;background:transparent;color:#aaa;font-size:23px;padding:8px}.composebox{display:flex;align-items:flex-end;gap:6px;flex:1;background:#17181d;border:1px solid #303139;border-radius:14px;padding:4px 9px}.composebox textarea{resize:none;max-height:120px;min-height:40px;flex:1;background:transparent;border:0;color:white;padding:10px 5px;outline:none;font-size:13px}.send{height:40px;width:43px;border:0;border-radius:11px;background:linear-gradient(135deg,#ff3a4b,#ba0018);color:white;font-size:18px;box-shadow:0 0 18px #ff263822}
+.welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;color:var(--muted);gap:12px}.welcome img{width:120px;height:120px;object-fit:cover;border-radius:28px;box-shadow:0 0 40px #ff26382a}.welcome h2{color:white;margin:4px}.welcome p{max-width:360px;line-height:1.9;font-size:12px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#25262b;border:1px solid #484951;padding:12px 18px;border-radius:12px;font-size:12px;box-shadow:0 12px 40px #0008;z-index:5;display:none}
+.modalback{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:4}.modal{width:min(440px,100%);background:#121317;border:1px solid #3b2025;border-radius:18px;padding:22px;box-shadow:0 0 50px #ff26381c}.modal h3{margin:0 0 18px}.modal input{width:100%;background:#1c1d22;border:1px solid #383941;border-radius:10px;padding:12px;color:white;margin-bottom:12px}.primary{width:100%;padding:12px;border:0;border-radius:10px;background:var(--red);color:white;font-weight:bold}.close{float:left;border:0;background:transparent;color:#aaa;font-size:20px}
+.mobileback{display:none}
+@media(max-width:700px){.app{grid-template-columns:1fr;height:100dvh}.sidebar{border-left:0}.main{display:none}.app.chat-open .sidebar{display:none}.app.chat-open .main{display:flex}.brand{padding:12px 15px}.brand img{width:45px;height:45px}.chatitem{padding:12px 15px}.mobileback{display:inline-block}.topbar{padding:10px 12px;height:68px}.content{padding:16px 12px}.composer{padding:10px}.bubble{max-width:88%}.sidebottom{padding:9px}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+ <aside class="sidebar">
+  <div class="brand"><img src="erfan-logo.png" alt="لوگوی اصلی ERFAN"><div><div class="brand-name">ERFAN</div><div class="brand-tag">PRIVATE MESSENGER</div></div></div>
+  <div class="search"><span>⌕</span><input id="search" placeholder="جست‌وجوی گفتگوها..." aria-label="جست‌وجوی گفتگوها"></div>
+  <div class="tabs"><button class="tab active" data-filter="all">همه</button><button class="tab" data-filter="unread">خوانده‌نشده</button><button class="tab" data-filter="groups">گروه‌ها</button></div>
+  <div class="chatlist" id="chatlist"></div>
+  <div class="sidebottom"><button data-modal="newchat">＋ گفت‌وگوی جدید</button><button data-modal="settings">⚙ تنظیمات</button></div>
+ </aside>
+ <main class="main">
+  <header class="topbar">
+   <div class="person"><button class="iconbtn mobileback" id="back" aria-label="بازگشت">‹</button><div class="avatar" id="activeavatar">آ</div><div><div class="personname" id="activeName">آرین</div><div class="status" id="activeStatus">● آنلاین</div></div></div>
+   <div class="topactions"><button class="iconbtn" title="تماس صوتی" data-demo="تماس صوتی در نسخه نمایشی فعال نیست">♧</button><button class="iconbtn" title="تماس تصویری" data-demo="تماس تصویری در نسخه نمایشی فعال نیست">▣</button><button class="iconbtn" title="اطلاعات گفتگو" data-modal="info">⋮</button></div>
+  </header>
+  <section class="content" id="messages"></section>
+  <form class="composer" id="sendform"><button type="button" class="composebtn" data-demo="پیوست فایل در نسخه نمایشی شبیه‌سازی شده است">＋</button><div class="composebox"><button type="button" class="composebtn" data-demo="انتخاب ایموجی در نسخه نمایشی">☺</button><textarea id="messageInput" rows="1" placeholder="پیام خود را بنویسید..." aria-label="متن پیام"></textarea></div><button class="send" aria-label="ارسال پیام" type="submit">➤</button></form>
+ </main>
+</div>
+<div class="modalback" id="modalback"><div class="modal"><button class="close" id="closemodal">×</button><div id="modalbody"></div></div></div><div class="toast" id="toast"></div>
+<script>
+const chats=[
+{id:1,name:"آرین",avatar:"آ",type:"private",online:true,unread:0,time:"۱۰:۳۲",preview:"اوکی، پس بعداً صحبت می‌کنیم",messages:[{from:"theirs",text:"سلام عرفان! چه خبر؟",time:"۱۰:۲۶"},{from:"mine",text:"سلام داداش، همه‌چی عالیه 🔥",time:"۱۰:۲۸"},{from:"theirs",text:"اوکی، پس بعداً صحبت می‌کنیم",time:"۱۰:۳۲"}]},
+{id:2,name:"تیم ERFAN",avatar:"E",type:"group",online:false,unread:3,time:"۱۰:۱۸",preview:"سینا: طرح جدید خیلی خفنه",messages:[{from:"theirs",text:"به گروه رسمی تیم ERFAN خوش اومدید 🖤",time:"دیروز"},{from:"theirs",text:"سینا: طرح جدید خیلی خفنه",time:"۱۰:۱۸"}]},
+{id:3,name:"مادر ❤️",avatar:"م",type:"private",online:true,unread:0,time:"دیروز",preview:"مراقب خودت باش عزیزم",messages:[{from:"theirs",text:"سلام عزیزم، روزت بخیر ❤️",time:"دیروز"},{from:"mine",text:"ممنونم ❤️",time:"دیروز"},{from:"theirs",text:"مراقب خودت باش عزیزم",time:"دیروز"}]},
+{id:4,name:"کانال اخبار ERFAN",avatar:"✦",type:"group",online:false,unread:0,time:"دوشنبه",preview:"به‌زودی قابلیت‌های جدید اضافه می‌شن",messages:[{from:"theirs",text:"به کانال اخبار ERFAN خوش آمدید.",time:"دوشنبه"},{from:"theirs",text:"به‌زودی قابلیت‌های جدید اضافه می‌شن 🚀",time:"دوشنبه"}]},
+{id:5,name:"پارسا",avatar:"پ",type:"private",online:false,unread:0,time:"یکشنبه",preview:"باشه، می‌بینمت",messages:[{from:"theirs",text:"امروز میای بیرون؟",time:"یکشنبه"},{from:"mine",text:"آره، خبرت می‌کنم",time:"یکشنبه"},{from:"theirs",text:"باشه، می‌بینمت",time:"یکشنبه"}]}
+];
+let activeId=1,filter="all";
+const $=s=>document.querySelector(s);
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function renderList(){const q=$("#search").value.trim().toLowerCase();$("#chatlist").innerHTML=chats.filter(c=>(c.name.toLowerCase().includes(q)||c.preview.toLowerCase().includes(q))&&(filter==="all"||(filter==="unread"&&c.unread)||(filter==="groups"&&c.type==="group"))).map(c=>`<div class="chatitem ${c.id===activeId?'active':''}" data-id="${c.id}"><div class="avatar">${esc(c.avatar)}</div><div class="chatinfo"><div class="chatline"><span class="chatname">${esc(c.name)}</span><span class="time">${esc(c.time)}</span></div><div class="preview">${esc(c.preview)}</div></div>${c.unread?`<span style="font-size:10px;background:#ed2638;border-radius:12px;padding:3px 6px">${c.unread}</span>`:''}</div>`).join("")||'<div style="padding:25px;color:#999;text-align:center;font-size:12px">گفت‌وگویی پیدا نشد.</div>'}
+function renderMessages(){const c=chats.find(x=>x.id===activeId);if(!c)return;$("#activeName").textContent=c.name;$("#activeavatar").textContent=c.avatar;$("#activeStatus").textContent=c.online?"● آنلاین":"آخرین بازدید اخیراً";$("#messages").innerHTML='<div class="day">امروز</div>'+c.messages.map(m=>`<div class="msgrow ${m.from}"><div class="bubble">${esc(m.text)}<div class="msgmeta"><span>${esc(m.time)}</span>${m.from==="mine"?"<span>✓✓</span>":""}</div></div></div>`).join("");$("#messages").scrollTop=$("#messages").scrollHeight; c.unread=0;renderList()}
+function toast(s){let t=$("#toast");t.textContent=s;t.style.display="block";clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.style.display="none",2400)}
+$("#chatlist").addEventListener("click",e=>{const el=e.target.closest(".chatitem");if(!el)return;activeId=+el.dataset.id;renderMessages();$("#app").classList.add("chat-open")});
+$("#search").addEventListener("input",renderList);
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{filter=b.dataset.filter;document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));renderList()}));
+$("#sendform").addEventListener("submit",e=>{e.preventDefault();const input=$("#messageInput"),text=input.value.trim();if(!text)return;const c=chats.find(x=>x.id===activeId);const time=new Date().toLocaleTimeString("fa-IR",{hour:"2-digit",minute:"2-digit"});c.messages.push({from:"mine",text,time});c.preview=text;c.time=time;input.value="";input.style.height="40px";renderMessages();toast("پیام در نمونه اولیه اضافه شد")});
+$("#messageInput").addEventListener("input",e=>{e.target.style.height="40px";e.target.style.height=Math.min(e.target.scrollHeight,120)+"px"});
+$("#back").addEventListener("click",()=>$("#app").classList.remove("chat-open"));
+function openModal(type){let body=$("#modalbody");if(type==="newchat"){body.innerHTML='<h3>گفت‌وگوی جدید</h3><input id="newname" placeholder="نام مخاطب یا گروه"><button class="primary" id="createchat">ساخت گفت‌وگو</button>';$("#modalback").style.display="flex";$("#createchat").onclick=()=>{let n=$("#newname").value.trim();if(!n)return toast("اول یک نام وارد کن");let id=Math.max(...chats.map(c=>c.id))+1;chats.unshift({id,name:n,avatar:n[0],type:"private",online:false,unread:0,time:"اکنون",preview:"گفت‌وگو ساخته شد",messages:[{from:"theirs",text:"گفت‌وگوی آزمایشی ساخته شد. می‌توانی پیام بفرستی.",time:"اکنون"}]});activeId=id;renderList();renderMessages();$("#modalback").style.display="none";$("#app").classList.add("chat-open");toast("گفت‌وگوی آزمایشی ساخته شد")}}else if(type==="settings"){body.innerHTML='<h3>تنظیمات ERFAN</h3><p style="color:#aaa;font-size:13px;line-height:2">ظاهر برنامه با تم قرمز و مشکی طراحی شده است.</p><label style="display:block;margin:14px 0"><input type="checkbox" checked style="width:auto;margin-left:8px"> اعلان‌های نمایشی</label><label style="display:block;margin:14px 0"><input type="checkbox" checked style="width:auto;margin-left:8px"> جلوه‌های قرمز نئونی</label><button class="primary" id="saveSettings">ذخیره تنظیمات نمایشی</button>';$("#modalback").style.display="flex";$("#saveSettings").onclick=()=>{$("#modalback").style.display="none";toast("تنظیمات نمایشی ذخیره شد")}}else{const c=chats.find(x=>x.id===activeId);body.innerHTML=`<h3>${type==="info"?"اطلاعات گفتگو":"درباره ERFAN"}</h3><p style="color:#bbb;font-size:13px;line-height:2">نام: ${esc(c.name)}<br>نوع: ${c.type==="group"?"گروه / کانال نمایشی":"گفت‌وگوی خصوصی نمایشی"}<br>وضعیت: نمونه اولیه قابل کلیک<br><br>پیام‌ها فقط در همین صفحه و تا زمان تازه‌سازی نگهداری می‌شوند. سرور و رمزگذاری واقعی هنوز راه‌اندازی نشده‌اند.</p><button class="primary" id="okinfo">متوجه شدم</button>`;$("#modalback").style.display="flex";$("#okinfo").onclick=()=>$("#modalback").style.display="none"}}
+document.querySelectorAll("[data-modal]").forEach(b=>b.addEventListener("click",()=>openModal(b.dataset.modal)));
+document.querySelectorAll("[data-demo]").forEach(b=>b.addEventListener("click",()=>toast(b.dataset.demo)));
+$("#closemodal").onclick=()=>$("#modalback").style.display="none";$("#modalback").addEventListener("click",e=>{if(e.target.id==="modalback")$("#modalback").style.display="none"});
+renderList();renderMessages();
+</script>
+</body></html>
